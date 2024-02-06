@@ -1,0 +1,74 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Equipos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="m-3" [hidden]="VisualTabla">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Escudo</th>
+          <th scope="col">Nombre</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item_equipo of ListaEquipos">
+          <td>
+            <ion-avatar>
+              <img
+                alt="Escudo de {{item_equipo.nombre}}"
+                src="{{item_equipo.escudo}}"
+              />
+            </ion-avatar>
+          </td>
+          <td class="align-middle"><b>{{item_equipo.nombre}}</b></td>
+          <td class="align-middle">
+            <button class="btn btn-primary" (click)="VerDetalles(item_equipo)">
+              Detalles
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card m-3" [hidden]="VisualDetalles">
+    <ion-item>
+      <ion-avatar slot="start"><img src="{{equipo.escudo}}"/></ion-avatar>
+      <ion-label>{{equipo.nombre}} - Detalles</ion-label>
+    </ion-item>
+    <div class="m-2 row">
+      <div class="col">
+        <label>Ciudad</label>
+        <input class="form-control" value="{{equipo.ciudad}}" disabled>
+        <label class="mt-2">Pais</label>
+        <input class="form-control" value="{{equipo.pais}}" disabled>
+      </div>
+      <div class="col">
+        <label>ID</label>
+        <input class="form-control" value="{{equipo.id}}" disabled>
+        <label>Entrenador</label>
+        <input class="form-control" value="{{equipo.entrenador}}" disabled>
+      </div>
+    </div>
+  </div>
+  <div class="m-3 row justify-content-center" [hidden]="VisualDetalles">
+    <h2>Plantilla</h2>
+    <div class="card col-md-4 m-3" style="width: 18rem;" *ngFor="let jug of ListaJugEquipo">
+      <img class="card-img-top mt-3" src="{{jug.foto}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{jug.nombre}} {{jug.apellidos}}</h5>
+        <p class="card-text"><b>Pais:</b> {{jug.pais}}</p>
+        <p class="card-text"><b>Posicion:</b> {{jug.posicion}}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer >
+  <div class="m-3">
+    <a class="btn btn-primary" routerLink="/"><ion-icon name="home-outline"></ion-icon> Volver a inicio</a>
+  </div>
+</ion-footer>
+<router-outlet></router-outlet>

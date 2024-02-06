@@ -1,0 +1,131 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Jugadores</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="m-3 row justify-content-center" [hidden]="VisualDetalles">
+    <h2>Listado de jugadores</h2>
+    <label>Filtrado por posicion:</label>
+    <select class="m-1 form-select" id="selectPosicion" [(ngModel)]="posicionSeleccionada"
+      (change)="seleccionarPosicion()">
+      <option selected>Todas</option>
+      <option value="Defensa">Defensa</option>
+      <option value="Centrocampista">Centrocampista</option>
+      <option value="Delantero">Delantero</option>
+      <option value="Portero">Portero</option>
+    </select>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Equipo</th>
+          <th scope="col">Posicion</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody [hidden]="VisualFiltro">
+        <tr *ngFor="let item of ListaJugadores">
+          <td>{{item.nombre}} {{item.apellidos}}</td>
+          <td class="align-middle">{{item.equipo}}</td>
+          <td class>{{item.posicion}}</td>
+          <td class="align-middle">
+            <button class="btn btn-primary" (click)="VerDetalles(item)">
+              Detalles
+            </button>
+          </td>
+          <td class="align-middle">
+            <button class="btn btn-danger" (click)="EliminarJugador(item.id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody [hidden]="VisualFiltroSelect">
+        <tr *ngFor="let item of ListaJugadoresFiltro">
+          <td>{{item.nombre}} {{item.apellidos}}</td>
+          <td class="align-middle">{{item.equipo}}</td>
+          <td class>{{item.posicion}}</td>
+          <td class="align-middle">
+            <button class="btn btn-primary" (click)="VerDetalles(item)">
+              Detalles
+            </button>
+          </td>
+          <td class="align-middle">
+            <button class="btn btn-danger" (click)="EliminarJugador(item.id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card m-3" [hidden]="VisualDetallesJugador">
+    <form (submit)="actualizar(id,nombre,apellidos,pais,equipo,posicion,foto)">
+      <h2 class="m-3">Información del futbolista</h2>
+      <div class="row">
+        <div class="col-md-5 m-3">
+          <label>Foto:</label>
+          <input class="form-control" value="{{jugador.foto}}" [disabled]="ModoEdicion" id="foto" #foto />
+          <img class="mt-2" style="border: 3px solid rgb(206, 206, 206); border-radius: 25px" src="{{jugador.foto}}"/>
+        </div>
+        <div class="col-md-6">
+          <h3>Información personal</h3>
+          <label>ID:</label>
+          <input class="form-control" value="{{jugador.id}}" id="id" disabled #id />
+          <label>Nombre:</label>
+          <input class="form-control" value="{{jugador.nombre}}" [disabled]="ModoEdicion" id="nombre" #nombre />
+          <label>Apellido:</label>
+          <input class="form-control" value="{{jugador.apellidos}}" [disabled]="ModoEdicion" id="apellidos" #apellidos/>
+          <label class="mt-1">Pais:</label>
+          <input class="form-control" value="{{jugador.pais}}" [disabled]="ModoEdicion" id="pais" #pais />
+        </div>
+        <div class="row m-3">
+          <div class="col-md-5">
+            <label for="pais">Equipo:</label>
+            <input class="form-control" value="{{jugador.equipo}}" [disabled]="ModoEdicion" [hidden]="!ModoEdicion"/>
+            <select class="form-control" [disabled]="ModoEdicion" id="equipo" [hidden]="ModoEdicion" #equipo>
+              <option *ngFor="let equip of ListaEquipos">
+                {{ equip.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-5">
+            <label class="mt-1">Posicion:</label>
+            <input class="form-control" value="{{jugador.posicion}}" [disabled]="ModoEdicion" [hidden]="!ModoEdicion" />
+            <select class="form-control" [disabled]="ModoEdicion" id="posicion" [hidden]="ModoEdicion" #posicion>
+              <option value="Defensa">Defensa</option>
+              <option value="Centrocampista">Centrocampista</option>
+              <option value="Delantero">Delantero</option>
+              <option value="Portero">Portero</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="m-3">
+        <a class="btn btn-secondary" (click)="AtrasDetalles()">
+          Atras
+        </a>
+        <a class="m-2 btn btn-success" (click)="ActivarEditar()" [hidden]="!ModoEdicion">
+          Activar modo edicion
+        </a>
+        <a class="m-2 btn btn-success" (click)="ActivarEditar()" [hidden]="ModoEdicion">
+          Desactivar modo edicion
+        </a>
+        <button class="m-2 btn btn-primary" [hidden]="ModoEdicion">
+          GuardarCambios
+        </button>
+      </div>
+    </form>
+  </div>
+</ion-content>
+<ion-footer >
+  <div class="m-3">
+    <a class="btn btn-primary" routerLink="/"><ion-icon name="home-outline"></ion-icon> Volver a inicio</a>
+  </div>
+</ion-footer>
+<router-outlet></router-outlet>

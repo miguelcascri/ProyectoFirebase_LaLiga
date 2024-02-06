@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container text-center mt-3">
+    <button class="btn btn-primary w-75" (click)="MostrarFormJugadores()">Nuevo jugador</button>
+    <button class="btn btn-success w-75 mt-2" (click)="MostrarFormEquipos()" id="numeroequipo" #nuevoequipo>Nuevo Equipo</button>
+  </div>
+
+  <form class="m-3 form-inline" [hidden]="FormJugadores" (submit)="addJugador(nombre, apellidos, pais, equipo, posicion, foto)">
+    <h2>Añadir nuevo <b>jugador</b></h2>
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombre" #nombre>
+    </div>
+    <div class="form-group">
+      <label for="apellidos">Apellidos:</label>
+      <input type="text" class="form-control" id="apellidos" #apellidos>
+    </div>
+    <div class="form-group">
+      <label for="pais">País:</label>
+      <select class="form-control" id="pais" #pais>
+        <option selected disabled>Selecciona un pais</option>
+        <option *ngFor="let pais of ListaPaises">
+          {{ pais.name }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="pais">Equipo:</label>
+      <select class="form-control" id="equipo" #equipo>
+        <option selected disabled>Selecciona un equipo</option>
+        <option *ngFor="let equip of ListaEquipos">
+          {{ equip.nombre }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="posicion">Posición:</label>
+      <select class="form-control" id="posicion" #posicion>
+        <option selected disabled>Selecciona una posicón</option>
+        <option *ngFor="let posc of ListaPosicion">
+          {{ posc }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="apellidos">Foto:</label>
+      <input type="text" placeholder="Introduce una foto" class="form-control" id="foto" #foto>
+    </div>
+    <button class="mt-2 btn btn-primary">Guardar</button>
+  </form>
+
+  <form class="m-3 form-inline" [hidden]="FormEquipos" (submit)="addEquipo(nombree, ciudad, entrenador,paises, escudo)">
+    <h2>Añadir nuevo <b>equipo</b></h2>
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" class="form-control" id="nombree" #nombree>
+    </div>
+    <div class="form-group">
+      <label for="ciudad">Ciudad:</label>
+      <input type="text" class="form-control" id="ciudad" #ciudad>
+    </div>
+    <div class="form-group">
+      <label for="pais">Pais:</label>
+      <input type="text" class="form-control" id="paises" #paises>
+    </div>
+    <div class="form-group">
+      <label for="entrenador">Entrenador:</label>
+      <input type="text" class="form-control" id="entrenador" #entrenador>
+    </div>
+    <div class="form-group">
+      <label for="escudo">Escudo:</label>
+      <input type="text" placeholder="Introduce una foto" class="form-control" id="escudo" #escudo>
+    </div>
+    <button class="mt-2 btn btn-primary">Guardar</button>
+  </form>
+  
+
+
+</ion-content>
